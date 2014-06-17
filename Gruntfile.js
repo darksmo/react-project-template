@@ -136,7 +136,7 @@ module.exports = function (grunt) {
             files: [
                 {
                     expand: true,
-                    cwd: 'assets/js/templates/',
+                    cwd: 'assets/js/views/',
                     ext: '.js',
                     src: '*.jsx',
                     dest: 'build/'
