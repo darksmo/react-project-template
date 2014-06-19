@@ -26,7 +26,6 @@ module.exports = function (grunt) {
             'assets/vendor/console-polyfill/index.js',
             'assets/vendor/es5-shim/js/es5-shim.js',
             'assets/vendor/es5-shim/js/es5-sham.js',
-            'assets/vendor/react/js/react.js',
             'assets/vendor/jquery/jquery.js'
         ],
         dest: 'public/js/main.js'
@@ -35,7 +34,7 @@ module.exports = function (grunt) {
         src: [
             'assets/js/inject_livereload.js',
             '<%= concat.prod.src %>',
-            'build/*.js'
+            'build/main.js'
         ],
         dest: 'public/js/main.js'
       }
@@ -45,8 +44,8 @@ module.exports = function (grunt) {
         banner: '<%= banner %>'
       },
       dist: {
-        src: [ '<%= concat.prod.src %>', 'build/*.js' ],
-        dest: 'public/js/main.min.js'
+        src: [ '<%= concat.prod.src %>', 'build/main.js' ],
+        dest: 'public/js/main.js'
       }
     },
     clean: {
@@ -82,14 +81,16 @@ module.exports = function (grunt) {
             "jQuery" : true,
             "$": true,
             "cached_response" : true,
-            "_": true
+            "_": true,
+            "require": true,
+            "module": true
         }
       },
       gruntfile: {
         src: 'Gruntfile.js'
       },
       build: {
-        src: 'build/**/*.js'
+        src: 'assets/js/**/*.js'
       }
     },
     copy: {
@@ -131,17 +132,15 @@ module.exports = function (grunt) {
             }
         }
     },
-    react: {
-        dev: {
-            files: [
-                {
-                    expand: true,
-                    cwd: 'assets/js/views/',
-                    ext: '.js',
-                    src: '*.jsx',
-                    dest: 'build/'
-                }
-            ]
+    browserify: {
+        options: {
+            debug: true,
+            transform: [ 'reactify' ],
+            extensions: ['.jsx']
+        },
+        client: {
+            src: 'assets/js/app.jsx',
+            dest: 'build/main.js'
         }
     }
   });
@@ -155,10 +154,10 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-bower-task');
-  grunt.loadNpmTasks('grunt-react');
+  grunt.loadNpmTasks('grunt-browserify');
 
   // Default task.
-  grunt.registerTask('prod', ['react', 'jshint', 'copy', 'uglify', 'less']);
-  grunt.registerTask('dev', ['react', 'jshint','concat:dev', 'copy', 'uglify', 'less']);
+  grunt.registerTask('prod', ['jshint', 'browserify', 'copy', 'uglify', 'less']);
+  grunt.registerTask('dev', ['jshint', 'browserify', 'concat:dev', 'copy', 'less']);
 
 };

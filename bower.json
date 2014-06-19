@@ -21,7 +21,8 @@
     "jquery": "~1.11",
     "base": "*",
     "es5-shim" :  "3.4.0",
-    "console-polyfill" : "0.1.1"
+    "console-polyfill" : "0.1.1",
+    "fluxxor": "1.2.1"
   },
   "exportsOverride" : {
     "react" : {
