@@ -1,3 +1,5 @@
 node_modules/
 assets/vendor/
 build/
+public/css/
+public/js/
