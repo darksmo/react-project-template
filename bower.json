@@ -22,7 +22,9 @@
     "base": "*",
     "es5-shim" :  "3.4.0",
     "console-polyfill" : "0.1.1",
-    "fluxxor": "1.2.1"
+    "fluxxor": "1.2.1",
+    "backbone": "1.1.2",
+    "underscore": "1.6.0"
   },
   "exportsOverride" : {
     "react" : {

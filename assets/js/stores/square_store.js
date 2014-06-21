@@ -11,6 +11,7 @@ var SquareStore = Fluxxor.createStore({
     },
     handleAddSquare: function (payload) {
         this.squares.push({
+            id: this.squares.length + 1,
             name : payload.squareName
         });
         this.emit(CHANGE_EVENT);
@@ -19,6 +20,9 @@ var SquareStore = Fluxxor.createStore({
         return {
             squares: this.squares
         };
+    },
+    getSquare: function (squareId) {
+        return this.squares[squareId-1];
     }
 });
 

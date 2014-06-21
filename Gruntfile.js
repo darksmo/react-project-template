@@ -26,7 +26,9 @@ module.exports = function (grunt) {
             'assets/vendor/console-polyfill/index.js',
             'assets/vendor/es5-shim/js/es5-shim.js',
             'assets/vendor/es5-shim/js/es5-sham.js',
-            'assets/vendor/jquery/jquery.js'
+            'assets/vendor/jquery/jquery.js',
+            'assets/vendor/underscore/underscore.js',
+            'assets/vendor/backbone/backbone.js'
         ],
         dest: 'public/js/main.js'
       },
@@ -76,6 +78,7 @@ module.exports = function (grunt) {
         boss: true,
         eqnull: true,
         globals: {
+            "Backbone": true,
             "React": true,
             "window" : true,
             "jQuery" : true,
@@ -133,12 +136,14 @@ module.exports = function (grunt) {
         }
     },
     browserify: {
-        options: {
-            debug: true,
-            transform: [ 'reactify' ],
-            extensions: ['.jsx']
-        },
         client: {
+            options: {
+                debug: true,
+                transform: [
+                    'reactify'
+                ],
+                extensions: ['.jsx']
+            },
             src: 'assets/js/app.jsx',
             dest: 'build/main.js'
         }
